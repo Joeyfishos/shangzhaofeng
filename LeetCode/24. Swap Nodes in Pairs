@@ -1,0 +1,38 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if(!head||!head->next)
+        {
+            return head;
+        }
+        else
+        {
+            ListNode* answer=head->next;
+            ListNode* temp=head->next->next;
+            head->next->next=head;
+            head->next=swapPairs(temp);
+             return answer;//every recursion need a return value!
+        }
+       
+      
+    }
+};
+//重点在于锁住next的地址，先锁住head的地址， 在*pp取head，让头指向b，也就是2，新头，然后让pp指向a得next得地址，用*pp来调用这个next来指向新头，再将pp指向新头得新头得next得地址，以此类推
+// ListNode* swapPairs(ListNode* head) {
+//     ListNode **pp = &head, *a, *b;
+//     while ((a = *pp) && (b = a->next)) {
+//         a->next = b->next;
+//         b->next = a;
+//         *pp = b;
+//         pp = &(a->next);
+//     }
+//     return head;
+// }

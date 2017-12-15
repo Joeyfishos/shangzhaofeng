@@ -1,0 +1,43 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* insertionSortList(ListNode* head) {
+        ListNode *newhead=new ListNode(0);
+        newhead->next=head;
+        ListNode *pre=newhead,*cur=head;
+        while(cur)
+        {
+            if(cur->next&&cur->next->val<cur->val)//找到要进行移动的数，3564，前面是顺位则不用动
+            {
+                while(pre->next&&pre->next->val<cur->next->val)//从头循环找到空位，3  56 之间。
+                {
+                    pre=pre->next;
+                }
+                
+                //   ListNode* temp = pre -> next;
+                // pre -> next = cur -> next;
+                // cur -> next = cur -> next -> next;
+                // pre -> next -> next = temp;
+                ListNode* temp=cur->next->next;
+                cur->next->next=pre->next;
+                pre->next=cur->next;
+                cur->next=temp;
+                
+                pre=newhead;    
+            }   
+            else
+            {
+                cur=cur->next;
+            }
+        }
+        return newhead->next;
+        
+    }
+};

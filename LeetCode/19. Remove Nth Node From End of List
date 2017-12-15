@@ -1,0 +1,56 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(!head) return head;
+        ListNode* temp=head;
+        int num=0;
+        while(temp)
+        {
+            num++;
+            temp=temp->next;
+        }
+        if(num==1) return NULL;
+        temp=head;
+        int vale=(n%num==0)?num:n%num;
+        if(n==1)
+        {
+            for(int i=1;i<(num-vale);i++) temp=temp->next;
+            temp->next=NULL;
+        }
+        else
+        {
+            for(int i=1;i<(num-vale+1);i++) temp=temp->next;
+             *temp=*(temp->next);
+        }
+  
+        return head;
+    }
+};
+
+class Solution
+// {
+// public:
+//     ListNode* removeNthFromEnd(ListNode* head, int n)
+//     {
+//         ListNode** t1 = &head, *t2 = head;
+//         for(int i = 1; i < n; ++i)
+//         {
+//             t2 = t2->next;
+//         }
+//         while(t2->next != NULL)
+//         {
+//             t1 = &((*t1)->next);//此为保存待删除元素前一个元素的next的地址，完了让这个next指向*t1->next，亦为跳两个
+//             t2 = t2->next;
+//         }
+//         *t1 = (*t1)->next;//即使是空亦无妨，因为t1是head的地址，*t1操作head向前，
+//         return head;
+//     }
+// };

@@ -1,0 +1,88 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        ListNode* temp=head,*ans;
+        if(!temp)
+        {
+            return head;
+        }
+        while(temp&&temp->val==val)
+        {
+            temp=temp->next;
+        }
+        head=temp;
+        ans=head;
+        if(!head)
+        {
+            return head;
+        }
+        while(temp->next)
+        {
+            if(temp->next->val!=val)
+            {
+                temp=temp->next;
+                head->next=temp;
+                head=head->next;
+            }
+            else if(temp->next->val==val&&temp->next->next)
+            {
+                temp=temp->next;
+            }
+            else if(temp->next->val==val&&!temp->next->next)
+            {
+                head->next=NULL;
+                break;
+            }
+
+        }
+                   
+        return ans;
+    }
+};
+
+
+// class Solution {
+// public:
+//     ListNode* removeElements(ListNode* head, int val) {
+//         ListNode* temp = new ListNode(0);
+//         temp->next = head;
+        
+//         ListNode* current = temp;
+//         while (current->next) {
+//             if (current->next->val == val)
+//                 current->next = current->next->next;
+//             else
+//                 current = current->next;
+//         }
+        
+//         return temp->next;
+//     }
+// };
+
+// 双重指针，关键是让**list锁住next的地址，因为next也是个指针，可以将指针得地址给**list，这样list的东西不是直接成为下一个了，而是*list是下一个，然后*list来调用next这个指针。让**list拿到第一个点的next的地址，按住地址往后挪*list，让next指针一个一个往后指。碰见6往后，直到非6，则换非6的next的地址。 list=&(head->next)是这个next框指针的地址，*list为指针所指的东西，若为6，则 *list = (*list)->next，是这个next指针指向下一个的next，也就是跳两个。
+// ListNode *removeElements(ListNode *head, int val)
+// {
+//     ListNode **list = &head;
+
+//     while (*list != nullptr)
+//     {
+//         if ((*list)->val == val)
+//         {
+//             *list = (*list)->next;
+//         }
+//         else
+//         {
+//             list = &(*list)->next;
+//         }
+//     }
+
+//     return head;
+// }

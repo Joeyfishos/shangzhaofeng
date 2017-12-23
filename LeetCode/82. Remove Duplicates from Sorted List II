@@ -1,0 +1,97 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+     ListNode* deleteDuplicates(ListNode* head) {
+         
+        if(!head||!head->next)return head;
+        ListNode* first=new ListNode(0);
+        first->next=head;
+        ListNode** firNext=&(first->next),*B=head;// 重点：让*firNext先走，B随后。1-1-2-2-3-4-5 造假0，firnext指着，B为现在的。让B找分界岭，若中间有重复，则*firNext虚指向下一个，抛弃1-1，同理抛弃2-2，指向3，B自加，到分界岭3-4，*firNext为B，中间无重复，则直接给地址，Go
+        while(B)//*firNext是不是B指针的，就是看这俩中间有无前重复
+        {
+            while(B->next&&B->val==B->next->val)
+            {
+                B=B->next;
+            }
+            if((*firNext)==B)//如果没有即：1-2-3-3，则将地址转移在2上，吃掉1.
+            {
+                firNext=&(*firNext)->next;
+            }
+            else//如果有，即1-1-2-2-3-4，则抛弃1-1，只是将next指针暂时指向2，B自加再到2，发现还有重复，继续，虚指3，
+                //，B自加到3，看4，这时3-4之间没重复，说明*firNext就是B，连着的，直接给地址，如上述if语句
+            {
+               *firNext=B->next;
+            }
+            B=B->next;
+        }
+         return first->next;
+     }
+};
+
+// class Solution {
+// public:
+//     ListNode* deleteDuplicates(ListNode* head) {  //递归方法，1-1-2-2-3-4-5-5-6，传入2起头，传入3起头，3->next传入4起头，4->next传入5起头，返回6，最终返回3-4-6
+//         if (!head) return 0;
+//         if (!head->next) return head;
+        
+//         int val = head->val;
+//         ListNode *p = head->next;
+        
+//         if (p->val != val) {
+//             head->next = deleteDuplicates(p);
+//             return head;
+//         } else {
+//             while (p && p->val == val) p = p->next;
+//             return deleteDuplicates(p);
+//         }
+//     }
+// };
+   
+    
+    // ListNode* deleteDuplicates(ListNode* head) {
+    //     if(!head||!head->next)return head;
+    //     ListNode* first=new ListNode(0);
+    //     first->next=head;
+    //     ListNode** A=&(first->next),*B=head->next;
+    //     while((*A)->next!=NULL)
+    //     {
+    //         if(B->val!=(*A)->val&&!B->next) return first->next;
+    //         if(B->val==(*A)->val&&!B->next) return NULL;
+    //         if((*A)->val==B->val)
+    //         {
+    //             B=B->next;
+    //             while(B&&(*A)->val==B->val)
+    //             {
+    //                B=B->next;
+    //             }
+    //              if(!B) return NULL;
+    //              (*A)=B;
+    //             B=B->next;
+    //             if(!B)return first->next;
+    //         }
+    //          if(B->next==NULL&&B->val!=(*A)->val)
+    //         {
+    //            return first->next;
+    //         }
+    //         if(B->next&&B->val!=(*A)->val&&B->val!=B->next->val)
+    //         {
+    //             A=&(*A)->next;
+    //             B=(*A)->next;
+    //         }
+    //         else
+    //         {
+    //             (*A)->next=B->next->next;
+    //             B=(*A)->next;
+    //         }
+    //     }
+    //     return first->next;
+    // }
+
+ 

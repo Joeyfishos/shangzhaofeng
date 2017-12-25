@@ -1,0 +1,71 @@
+/**
+ * Definition for singly-linked list with a random pointer.
+ * struct RandomListNode {
+ *     int label;
+ *     RandomListNode *next, *random;
+ *     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
+ * };
+ */
+//duplicated meathod
+//暴力解法是先逐个生成新链表，再找random时，对应于新链表的每个node都要循环一边来找，所以是n^2、
+//复制法是新的就在老前，所以用老->next，老->random->next直接找到对应的新，所以n
+//hashtable是将新老存起来，直接找，相当于next方法，是n
+// class Solution {
+// public:
+//    RandomListNode *copyRandomList(RandomListNode *head) {
+//     RandomListNode *newHead, *l1, *l2;
+//     if (head == NULL) return NULL;
+//     for (l1 = head; l1 != NULL; l1 = l1->next->next) {
+//         l2 = new RandomListNode(l1->label);//1 step，逐个创建新node
+//         l2->next = l1->next;
+//         l1->next = l2;
+//     }
+        
+//         newHead=head->next;
+//         l1=head;
+//         while(l1)//set all the new list's random node
+//         {// if l1->random is NULL, 默认为random（null）所以不作为
+//             if(l1->random)  {l1->next->random=l1->random->next;}//2 step用next解决random问题
+//             l1=l1->next->next;
+//         }
+        
+//         l1=head;
+//         l2=l1->next;
+//         while(l1)
+//         {
+//             l1->next=l2->next;
+//             l1=l1->next;
+//             if(l2->next){l2->next=l1->next;l2=l1->next;}//3 step 分离
+//         }
+//     return newHead;
+// }
+// };
+
+//hashtable
+class Solution {//map存放新老指针的地址
+public:
+   RandomListNode *copyRandomList(RandomListNode *head) {
+    if(!head) return NULL;
+       RandomListNode *first=new RandomListNode(0),*second=new RandomListNode(0);
+       RandomListNode *p1=first,*p2=second;
+       unordered_map<RandomListNode*,RandomListNode*> mapp;
+       p1->next=head;
+       while(p1->next)
+       {
+           p1=p1->next;
+           // RandomListNode *tmp=new RandomListNode(p1->label);
+           // mapp[p1]=tmp;//键值对，键为老链表指针，值为新生成node的地址,      第一步.此为逐个创建新node
+           // p2=p2->next=tmp;
+           p2=p2->next=new RandomListNode(p1->label);
+           mapp[p1]=p2;
+       }
+       p1=head;
+       while(p1)
+       {
+           if(p1->random){mapp[p1]->random=mapp[p1->random];}//  第二步， 用hashtable类似于（next法）解决random
+           p1=p1->next;
+       }
+       return second->next;
+    
+}
+};

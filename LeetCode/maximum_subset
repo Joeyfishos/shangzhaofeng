@@ -1,0 +1,150 @@
+// mergesortmaxsubset.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int MaxSum(int a[], int left, int right);
+
+class Solution {
+public:
+	int maxSubArray(int A[], int n) {
+
+		int ans = A[0], i, j=0, sum = 0;
+		for (i = 0; i<n; i++) {
+			sum += A[i];
+			ans = max(sum, ans);
+			sum = max(sum, 0);
+		}
+		return ans;
+	}
+};
+
+
+class Solution22 {
+public:
+	int maxSubArray(vector<int>& A) {
+		int sum = A[0], temp = 0;
+		int n = 0;
+		int j = 0;
+		
+		for (int i = 0; i<A.size(); i++)
+		{
+			temp += A[i];
+			sum = max(sum, temp);
+			temp = max(temp, 0);
+		}
+		return sum;
+	}
+
+};
+// -----+-----+----+----  <-比较正子块的大小
+//解题思路;问题在于不知目前是否为最大，即后续有无提升，可以从0开始，1.若为负则弃，2.保存第一个为sum，3.后续为temp来比较替换
+int GetMaxSum(int a[], int length)
+{
+	//要明白1.只有在temp（即为目前和）小于0则begin换,此时为新头，不知道是不是比sum旧头大，偌大才换头尾
+	//当temp>sum即目前和大于已吃掉的最大和，即是可提升，则end beign都换
+	//对于-1，3，6，-11，-2
+	//temp衡量的时候都是拿的前一个值，首先时0开始，先拿到-1，让-1为begin，此时持有3，给temp，3>0这个sum，则endIndex为3的index，下一轮用3比较，则走else。成9。
+	//a[i]为6.，下一轮i持有-9，temp为9走else，为0.不走，结束。下一轮a[i]为2，temp为0，换头为下一个2.。。
+	//temp是一直加，每个都吃从左到右，若和为0则说明负贡献，全部抛弃。3，6，-8，2   temp吃完和sum比较，若提升则赋值sum，为9 当temp=3+6-8+2<sum则吐出sum里的end，temp抛弃
+
+
+	int sum = 0;    
+	int temp = 0;   
+	int startIndex = 0; 
+	int endIndex = 0;  
+	int newStartIndex = 0;  
+	for (int i = 0; i < length; i++)    
+	{
+		if (temp < 0)   //如果temp < 0；则要对temp重新赋值 ,假设下一个为begin 
+		{//若非负则说明正子块完了，换下一个。
+			temp = a[i];    //对temp重新赋值  ，让下一个暂为头
+			newStartIndex = i;  //暂时记录子数组（和最大）的新的起始位置（要看后续的sum 和 temp是否发生交换）
+			//这里解决新旧头的问题，{ -1,3,6,-11,2,3,-2 };中3，6是sum最大的，当-11到2换头后，暂定为新头2，但是不比sum大，所以sum仍然锁着头和尾，当闯入200，则替换了新头和尾
+		}
+		else//继续延续正子块
+		{
+			temp += a[i];   //例如此时temp为3，大于0，则走这一步的时候是3+6，因为i指向新的6了
+		}
+		//比较正子块，保存最大到sum
+		if (sum < temp) //此时 有提升，则替换end。。如果此时 sum < temp；则表示此时的子数组和大于之前的子数组和  
+		{//4,-5,1,8,-5,12, 这里-5之前为负则设begin为1的，sum=9，到-5时temp加，sum不该因为不知道话不划算，仍然保存end为8，到12后temp>sum有提升，则改变end为12，故subset为1-12--
+			sum = temp; //将大的子数组和temp赋值给sum ，sum成9，若此时temp变小且没小到0，则sum继续保存原end不变，直到有一天temp后来居上则替换了end，则全部吃掉，否则后面的都没用
+			startIndex = newStartIndex; //子数组（和最大）的新的起始位置起作用了 ，换头 
+			endIndex = i;   //子数组（和最大）的终止位置（只要发生交换就说明endIndex发生变化）  
+		}
+	}
+	return startIndex;
+}
+
+int main()
+{
+	int arr[20] = { -1,3,6,-11,2,3,-2,-200,100};
+	Solution ss;
+	cout << GetMaxSum(arr, 9);
+
+
+
+	cout << endl;
+	Solution22 sss;
+	vector<int> ass = { -1,3,6,-9,2,3,-2};
+	//cout<<ass.size();
+ 	cout<<sss.maxSubArray(ass);
+	
+
+	
+	//cout<<ss.maxSubArray(arr, 9);
+	//int begin, end;
+
+	
+
+	int a[100] = { 4,-5,1,2};
+	int n = 4;
+	int sum = MaxSum(a, 0, n - 1);
+	//cout << sum << endl;
+	return 0;
+}
+
+
+
+
+int MaxSum(int a[], int left, int right)
+{
+	int sum = 0, midsum = 0, leftsum = 0, rightsum = 0;
+	int center, s1, s2, lefts, rights;
+	if (left == right)
+		sum = a[left];
+	else
+	{
+		center = (left + right) / 2;
+		leftsum = MaxSum(a, left, center);
+		rightsum = MaxSum(a, center + 1, right);//一直分到成1个为止，然后返回本身就组成了2个元素的子序列，对于它有左部，右部，和左右全部三种，找出贡献组合最大的，在上溯，对于上层序列也是2个元素。同理。记住每次都是2个元素在比较所以有三种可能左部，右部，和左右全部来贡献
+		s1 = -9999, lefts = 0;
+		for (int j = center; j >= left; j--)//这三个for分别计算左部，右部，和（左右全部尽可能多）这三种方式的最大值。
+		{
+			lefts += a[j];
+			if (lefts>s1)//这个让left先加着，如果一直升值则要，否则不要且卡在此值，若后续有值可以超越此，则要，直接全部赋值进来
+				s1 = lefts;
+		}
+		s2 = -9999, rights = 0;
+		for (int i = center + 1; i <= right; i++)//10，-3，-4，-5，-6，-2，-9，-3 这是先细分，-2,10，让-2为左10为右8为中，完了让这个左10 为上一届的左值，重复
+		{
+			rights += a[i];//这就不必担心连不上的问题，因为那一块可以自成一体代表那一片区
+			if (rights>s2)
+				s2 = rights;
+		}
+		midsum = s1 + s2;
+		if (midsum<leftsum)
+			sum = leftsum;
+		else
+			sum = midsum;
+		if (sum<rightsum)
+			sum = rightsum;
+	}
+	return sum;
+}

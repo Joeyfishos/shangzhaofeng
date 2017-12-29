@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int maximumSwap(int num) {
+        string numS=to_string(num);
+        int len=numS.length();
+        vector<int> positions(len,-1);//54312, 从后往前，1<2则让2吃掉1，3>2则改变curr的值
+        int curr=len-1;//继续，变成了54322，这样就知道是从3开始不一样的。
+        for(int i=len-1;i>=0;i--)
+        {
+            if(numS[i]>numS[curr]){curr=i;}//877777  8215476只需要2和7换就行
+            positions[i]=curr;//如果前面的大，则要换值curr为i再将该下标保存在vector内
+        }
+        for(int i=0;i<len;i++)
+        {
+            if(numS[i]!=numS[positions[i]]){swap(numS[i],numS[positions[i]]);break;}
+          
+        }
+        return stoi(numS);//string to int 
+    }
+};

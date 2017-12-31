@@ -1,0 +1,80 @@
+=== Run information ===
+
+Scheme:       weka.associations.Apriori -N 20 -T 0 -C 0.9 -D 0.05 -U 1.0 -M 0.1 -S -1.0 -c -1
+Relation:     data_association_data
+Instances:    8750
+Attributes:   33
+               n_tokens_title
+               n_tokens_content
+               n_unique_tokens
+               n_non_stop_words
+               num_hrefs
+               num_self_hrefs
+               num_imgs
+               num_videos
+               average_token_length
+               num_keywords
+               data_channel_is_lifestyle
+               data_channel_is_entertainment
+               data_channel_is_bus
+               data_channel_is_socmed
+               data_channel_is_tech
+               data_channel_is_world
+               kw_avg_avg
+               self_reference_avg_sharess
+               weekday_is_monday
+               weekday_is_tuesday
+               weekday_is_wednesday
+               weekday_is_thursday
+               weekday_is_friday
+               weekday_is_saturday
+               weekday_is_sunday
+               is_weekend
+               global_subjectivity
+               global_sentiment_polarity
+               rate_positive_words
+               rate_negative_words
+               title_subjectivity
+               title_sentiment_polarity
+               shares
+=== Associator model (full training set) ===
+
+
+Apriori
+=======
+
+Minimum support: 0.5 (4375 instances)
+Minimum metric <confidence>: 0.9
+Number of cycles performed: 10
+
+Generated sets of large itemsets:
+
+Size of set of large itemsets L(1): 6
+
+Size of set of large itemsets L(2): 9
+
+Size of set of large itemsets L(3): 4
+
+Best rules found:
+
+ 1.  n_tokens_content=t 6142 ==>  n_non_stop_words=t 6142    <conf:(1)> lift:(1) lev:(0) [22] conv:(22.46)
+ 2.  n_tokens_content=t  global_subjectivity=t 6132 ==>  n_non_stop_words=t 6132    <conf:(1)> lift:(1) lev:(0) [22] conv:(22.43)
+ 3.  global_sentiment_polarity=t 4452 ==>  global_subjectivity=t 4448    <conf:(1)> lift:(1) lev:(0) [15] conv:(3.97)
+ 4.  n_non_stop_words=t  global_sentiment_polarity=t 4441 ==>  global_subjectivity=t 4437    <conf:(1)> lift:(1) lev:(0) [15] conv:(3.96)
+ 5.  n_tokens_content=t 6142 ==>  global_subjectivity=t 6132    <conf:(1)> lift:(1) lev:(0) [17] conv:(2.49)
+ 6.  n_tokens_content=t  n_non_stop_words=t 6142 ==>  global_subjectivity=t 6132    <conf:(1)> lift:(1) lev:(0) [17] conv:(2.49)
+ 7.  n_tokens_content=t 6142 ==>  n_non_stop_words=t  global_subjectivity=t 6132    <conf:(1)> lift:(1.01) lev:(0) [39] conv:(4.47)
+ 8.  rate_positive_words=t 4658 ==>  n_non_stop_words=t 4647    <conf:(1)> lift:(1) lev:(0) [6] conv:(1.42)
+ 9.  global_subjectivity=t  rate_positive_words=t 4642 ==>  n_non_stop_words=t 4631    <conf:(1)> lift:(1) lev:(0) [5] conv:(1.41)
+10.  global_sentiment_polarity=t 4452 ==>  n_non_stop_words=t 4441    <conf:(1)> lift:(1) lev:(0) [5] conv:(1.36)
+11.  global_subjectivity=t  global_sentiment_polarity=t 4448 ==>  n_non_stop_words=t 4437    <conf:(1)> lift:(1) lev:(0) [5] conv:(1.36)
+12.  n_non_stop_words=t  num_keywords=t 4392 ==>  global_subjectivity=t 4378    <conf:(1)> lift:(1) lev:(0) [5] conv:(1.31)
+13.  global_sentiment_polarity=t 4452 ==>  n_non_stop_words=t  global_subjectivity=t 4437    <conf:(1)> lift:(1) lev:(0) [20] conv:(2.23)
+14.  num_keywords=t 4411 ==>  global_subjectivity=t 4396    <conf:(1)> lift:(1) lev:(0) [4] conv:(1.23)
+15.  rate_positive_words=t 4658 ==>  global_subjectivity=t 4642    <conf:(1)> lift:(1) lev:(0) [4] conv:(1.22)
+16.  n_non_stop_words=t  rate_positive_words=t 4647 ==>  global_subjectivity=t 4631    <conf:(1)> lift:(1) lev:(0) [4] conv:(1.22)
+17.  global_subjectivity=t 8711 ==>  n_non_stop_words=t 8680    <conf:(1)> lift:(1) lev:(0) [0] conv:(1)
+18.  num_keywords=t  global_subjectivity=t 4396 ==>  n_non_stop_words=t 4378    <conf:(1)> lift:(1) lev:(-0) [-1] conv:(0.85)
+19.  num_keywords=t 4411 ==>  n_non_stop_words=t 4392    <conf:(1)> lift:(1) lev:(-0) [-2] conv:(0.81)
+20.  n_non_stop_words=t 8718 ==>  global_subjectivity=t 8680    <conf:(1)> lift:(1) lev:(0) [0] conv:(1)
+

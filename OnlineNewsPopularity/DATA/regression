@@ -1,0 +1,125 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.LinearRegression -S 0 -R 1.0E-8 -num-decimal-places 4
+Relation:     Regression-weka.filters.unsupervised.attribute.Remove-R1-2-weka.filters.unsupervised.attribute.Remove-R38-42
+Instances:    39644
+Attributes:   54
+               n_tokens_title
+               n_tokens_content
+               n_unique_tokens
+               n_non_stop_words
+               n_non_stop_unique_tokens
+               num_hrefs
+               num_self_hrefs
+               num_imgs
+               num_videos
+               average_token_length
+               num_keywords
+               data_channel_is_lifestyle
+               data_channel_is_entertainment
+               data_channel_is_bus
+               data_channel_is_socmed
+               data_channel_is_tech
+               data_channel_is_world
+               kw_min_min
+               kw_max_min
+               kw_avg_min
+               kw_min_max
+               kw_max_max
+               kw_avg_max
+               kw_min_avg
+               kw_max_avg
+               kw_avg_avg
+               self_reference_min_shares
+               self_reference_max_shares
+               self_reference_avg_sharess
+               weekday_is_monday
+               weekday_is_tuesday
+               weekday_is_wednesday
+               weekday_is_thursday
+               weekday_is_friday
+               weekday_is_saturday
+               weekday_is_sunday
+               is_weekend
+               global_subjectivity
+               global_sentiment_polarity
+               global_rate_positive_words
+               global_rate_negative_words
+               rate_positive_words
+               rate_negative_words
+               avg_positive_polarity
+               min_positive_polarity
+               max_positive_polarity
+               avg_negative_polarity
+               min_negative_polarity
+               max_negative_polarity
+               title_subjectivity
+               title_sentiment_polarity
+               abs_title_subjectivity
+               abs_title_sentiment_polarity
+               shares
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+
+Linear Regression Model
+
+ shares =
+
+     85.9533 *  n_tokens_title +
+      0.6211 *  n_tokens_content +
+   4589.5627 *  n_unique_tokens +
+  -1484.8378 *  n_non_stop_words +
+  -2559.1364 *  n_non_stop_unique_tokens +
+     27.6121 *  num_hrefs +
+    -54.4773 *  num_self_hrefs +
+   -632.3212 *  average_token_length +
+     65.7494 *  num_keywords +
+   -912.4995 *  data_channel_is_lifestyle +
+  -1227.751  *  data_channel_is_entertainment +
+   -520.1076 *  data_channel_is_bus +
+   -478.0847 *  data_channel_is_socmed +
+   -479.82   *  data_channel_is_tech +
+   -855.9497 *  data_channel_is_world +
+      2.3693 *  kw_min_min +
+      0.0823 *  kw_max_min +
+     -0.3158 *  kw_avg_min +
+     -0.0024 *  kw_min_max +
+     -0.0007 *  kw_max_max +
+     -0.3761 *  kw_min_avg +
+     -0.2053 *  kw_max_avg +
+      1.6854 *  kw_avg_avg +
+      0.0264 *  self_reference_min_shares +
+      0.0056 *  self_reference_max_shares +
+     -0.0058 *  self_reference_avg_sharess +
+  -1513.5438 *  weekday_is_monday +
+  -2052.3806 *  weekday_is_tuesday +
+  -1891.3058 *  weekday_is_wednesday +
+  -2061.119  *  weekday_is_thursday +
+  -2028.15   *  weekday_is_friday +
+  -1971.7455 *  weekday_is_saturday +
+  -2349.0125 *  weekday_is_sunday +
+    582.3236 *  is_weekend +
+   2338.6909 *  global_subjectivity +
+ -12090.9434 *  global_rate_positive_words +
+   2638.5516 *  rate_positive_words +
+   2198.238  *  rate_negative_words +
+  -2640.6109 *  min_positive_polarity +
+  -1515.069  *  avg_negative_polarity +
+    644.8965 *  abs_title_subjectivity +
+    612.2942 *  abs_title_sentiment_polarity +
+    923.4599
+
+Time taken to build model: 1.14 seconds
+
+=== Cross-validation ===
+=== Summary ===
+
+Correlation coefficient                  0.0961
+Mean absolute error                   3073.4194
+Root mean squared error              11651.5984
+Relative absolute error                 95.8797 %
+Root relative squared error            100.2117 %
+Total Number of Instances            39644     
+

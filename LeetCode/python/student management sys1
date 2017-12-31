@@ -1,6 +1,5 @@
 import pickle
-#
-dictionary 的内建函数 __contains__//__getitem__//__setitem__
+#dictionary 的内建函数 __contains__//__getitem__//__setitem__//update, 用法是dict.update(key),这个key要写成标准模式，key={'aa':11}这样可以在dict中找到aa然后对应修改
 class notebook:
     dictnote={}
     def __init__(self):
@@ -20,15 +19,23 @@ class notebook:
     def addInfo(self,name,number):
         notebook.dictnote.__setitem__(name,number)
     def query(self,name):
-        print("the information is:".notebook.dictnote.__getitem__(name))  
+        print("the information is:",name,notebook.dictnote.__getitem__(name))  
     def show(self):
         print(notebook.dictnote)
+    def change(self,name):
+        key=name
+        if key in notebook.dictnote:
+            chane=input("input the content:")
+            kk={key:chane}
+            notebook.dictnote.update(kk)
+        else:
+            print("no data")
 
               
 flag=True
 my=notebook()
 while flag==True:
-    answer=input('"query(q)","add(a)","delete(d)","show(s)","exit(e)"')
+    answer=input('"query(q)","add(a)","delete(d)","show(s)","change(c)",exit(e)"')
     if answer=='q':
         key=input("put the name:")
         my.query(key)
@@ -41,6 +48,9 @@ while flag==True:
         my.delInfo(key)
     if answer=='s':
         my.show()
+    if answer=='c':
+        name=input("input the name:")
+        my.change(name)
     if answer=='e':
         flag=False
         

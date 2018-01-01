@@ -1,0 +1,5 @@
+﻿  calculator.cpp
+c:\users\zhaofeng shang\source\repos\calculator\calculator\calculator.cpp(81): warning C4715: 'Token_stream::get': not all control paths return a value
+c:\users\zhaofeng shang\source\repos\calculator\calculator\calculator.cpp(156): warning C4715: 'primary': not all control paths return a value
+  calculator.vcxproj -> C:\Users\ZHAOFENG SHANG\source\repos\calculator\Debug\calculator.exe
+  calculator.vcxproj -> C:\Users\ZHAOFENG SHANG\source\repos\calculator\Debug\calculator.pdb (Partial PDB)

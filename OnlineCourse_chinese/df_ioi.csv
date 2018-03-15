@@ -1,0 +1,2 @@
+bad_cases,=,origin_data_train.loc[origin_data_train['PassengerId'].isin(split_cv[predictions,!=,"cv_df.as_matrix()[:,0]]['PassengerId'].values)]"
+bad_cases,,,,

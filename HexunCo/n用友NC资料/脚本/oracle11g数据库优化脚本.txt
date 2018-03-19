@@ -1,0 +1,19 @@
+1、解除oracle11g用户密码默认180天限制
+
+查看对应的概要文件的口令有效期设置：
+SQL>SELECT * FROM dba_profiles WHERE profile='DEFAULT' AND resource_name='PASSWORD_LIFE_TIME'; 
+
+将口令有效期默认值180天修改成“无限制”（此项要慎重！除非你真得不想要这个密码失效的机制！）  
+SQL>ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+
+
+---------------------------------------------------------------
+2、oracle11G改参数允许导出空表
+
+查看现有设置：
+SQL>show parameter deferred_segment_creation
+
+更改参数：
+SQL> alter system set deferred_segment_creation=false;
+
+注：此参数设置后对以前导入的空表不产生作用，仍不能导出，只能对后面新增的表产生作用。因此，建议安装完数据库后，在建立用户前执行此脚本。

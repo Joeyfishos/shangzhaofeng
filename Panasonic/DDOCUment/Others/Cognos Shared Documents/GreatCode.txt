@@ -1,0 +1,100 @@
+
+
+
+
+
+Calculating percentages
+
+Percentage([Summary(Orderscnt)1])
+
+I encountered a similar issue and found the Aggregate function to be useful in calculating percentages.
+In a query create a  data item:  aggregate ([data item1]) / aggregate ([data item2])
+On the report, set the data format to percent.
+Modify message
+
+IF Then
+IF([C].[POS_DM].[HHTiers_xlsx].[User_Type] is null) THEN('-') ELSE ([C].[POS_DM].[HHTiers_xlsx].[User_Type])
+
+
+IF AND
+
+IF([C].[POS_DM].[SLXMMD_xlsx].[TYPE] = 'Accessory' and [C].[POS_DM].[PSCNA_POS_FEEDOUT_COMM_07122017_xlsx]
+.[MatGrp] = 'HANDHELD') THEN ([C].[POS_DM].[PSCNA_POS_FEEDOUT_COMM_07122017_xlsx].[Total_]) ELSE(0)
+
+
+IF([C].[POS_DM].[PSCNA_POS_FEEDOUT_COMM_07122017_xlsx].[Pana_Material]=[C].[POS_DM].[HHServices_xlsx].[Handheld_Services_SKU]) THEN([C].[POS_DM].[PSCNA_POS_FEEDOUT_COMM_07122017_xlsx].[Total_]) ELSE(0)
+
+
+Current date manipulation:
+
+= month(_add_days((current_date),-10))
+
+This will give you the year of last month as an integer:
+extract ( year, _add_months(current_date, -1 ) )
+
+This will give you the month of last month as an integer:
+extract ( month, _add_months(current_date, -1 ) )
+
+(extract ( month, _add_months(current_date, -1 ) ))
+(extract ( year, _add_months(current_date, -1 ) ))
+
+case 
+when [data item] = 1 then 'January'
+when [data item] = 2 then 'February'
+.
+.
+.
+when [data item] = 11 then 'November'
+else 'December'
+end
+
+
+
+[Prio Month]
+
+(extract ( month, _add_months(current_date, -1 ) ))
+
+long month
+
+case 
+when [Prior Month] = 1 then 'January'
+when [Prior Month] = 2 then 'February'
+when [Prior Month] = 3 then 'March'
+when [Prior Month] = 4 then 'April'
+when [Prior Month] = 5 then 'May'
+when [Prior Month] = 6 then 'June'
+when [Prior Month] = 7 then 'July'
+when [Prior Month] = 8 then 'August'
+when [Prior Month] = 9 then 'September'
+when [Prior Month] = 10 then 'October'
+when [Prior Month] = 11 then 'November'
+else 'December'
+end
+
+
+April Q1
+
+case 
+when [Prior Month] = 1 then 'Q4'
+when [Prior Month] = 2 then 'Q4'
+when [Prior Month] = 3 then 'Q4'
+when [Prior Month] = 4 then 'Q1'
+when [Prior Month] = 5 then 'Q1'
+when [Prior Month] = 6 then 'Q1'
+when [Prior Month] = 7 then 'Q2'
+when [Prior Month] = 8 then 'Q2'
+when [Prior Month] = 9 then 'Q2'
+when [Prior Month] = 10 then 'Q3'
+when [Prior Month] = 11 then 'Q3'
+else 'Q3'
+end
+
+
+Convertig Strings to Numbers for Sorting:
+
+TRIM([Item])
+
+CAST
+CAST([Item], INT)
+
+

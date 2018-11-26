@@ -1,0 +1,43 @@
+Sub Reorder_Columns()
+Dim ColumnOrder As Variant, ndx As Integer
+Dim Found, counter As Integer
+    ColumnOrder = Array("Channel Partner", "Sold to Customer", "Ship to party", _
+    "Ship to Address", "Ship to City", "Ship to State", "Ship to Zip", "Pana. Material", _
+    "Ship Date", "Quote Number", "Invoice Number", "Quantity")
+
+counter = 1
+
+Worksheets("TOTAL OCT").Name = "TOTAL"
+Worksheets("TOTAL").Copy After:=Worksheets(Worksheets.Count)
+
+Worksheets("TOTAL (2)").Name = "Completed"
+
+
+
+For ndx = LBound(ColumnOrder) To UBound(ColumnOrder)
+    Set Found = Sheets("Completed").Rows("1:1").Find(ColumnOrder(ndx), LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, SearchDirection:=xlNext, MatchCase:=False)
+      
+    If Not Found Is Nothing Then     ' not didn't catch
+        If Found.Column <> counter Then  ' same column needn't change
+            Found.EntireColumn.Cut
+            Sheets("Completed").Columns(counter).Insert Shift:=xlToRight
+            Application.CutCopyMode = False
+        End If
+    counter = counter + 1
+    End If
+Next ndx
+
+
+
+Sheets("Completed").Columns("M:O").EntireColumn.Delete
+Sheets("Completed").Columns("O:Q").EntireColumn.Delete
+
+Sheets("Completed").Columns("B").Insert
+Sheets("Completed").[D1].Resize(, 4).EntireColumn.Insert
+
+
+Sheets("Completed").Columns("N").Insert
+Sheets("Completed").Columns("M").Insert
+Sheets("Completed").[P1].Resize(, 4).EntireColumn.Insert
+End Sub
+

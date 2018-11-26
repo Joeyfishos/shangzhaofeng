@@ -1,0 +1,93 @@
+Sub Reorder_Columns()
+
+Dim Found As Integer
+
+Worksheets("Sheet1").Copy After:=Worksheets("Sheet1")
+Worksheets("Sheet1 (2)").Name = "JENNE(Completed)"
+
+
+Application.ScreenUpdating = False
+   
+
+
+Sheets("JENNE(Completed)").Columns("B").Insert
+Sheets("JENNE(Completed)").Columns("G").Insert
+
+Sheets("JENNE(Completed)").Columns("M:N").EntireColumn.Delete
+Sheets("JENNE(Completed)").Columns("M").Insert
+Sheets("JENNE(Completed)").Columns("O").Insert
+Sheets("JENNE(Completed)").Columns("N:R").EntireColumn.Delete
+
+
+Set Found = Sheets("JENNE(Completed)").Rows("1:1").Find("Panasonic Material Code", LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, SearchDirection:=xlNext, MatchCase:=False)
+Found.EntireColumn.Cut
+Sheets("JENNE(Completed)").Columns("N").Insert Shift:=xlToRight
+Application.CutCopyMode = False
+
+            
+[O2].Resize(, 5).EntireColumn.Insert
+
+'move Ship Date
+Sheets("JENNE(Completed)").Columns("U").Cut
+Sheets("JENNE(Completed)").Columns("T").Insert Shift:=xlToRight
+Application.CutCopyMode = False
+
+
+'move Special Bid
+Sheets("JENNE(Completed)").Columns("AA").Cut
+Sheets("JENNE(Completed)").Columns("U").Insert Shift:=xlToRight
+Application.CutCopyMode = False
+
+
+Sheets("JENNE(Completed)").Columns("Z:AA").EntireColumn.Delete
+
+Debug.Print TypeName(Found)
+
+
+
+
+
+Debug.Print Found
+
+
+
+
+
+
+
+'Sheets("TOTAL OCT(Completed)").Columns("B").Insert Shift:=xlToRight
+'[b2].Resize(, 3).EntireColumn.Insert
+
+
+
+'delete title or not
+Rows("1").EntireRow.Delete
+
+Application.ScreenUpdating = True
+
+
+
+End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

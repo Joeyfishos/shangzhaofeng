@@ -1,0 +1,60 @@
+Sub Reorder_Columns()
+
+Dim Found As Integer
+
+ActiveSheet.Copy After:=ActiveSheet
+
+ActiveSheet.Name = "SAP(Completed)"
+
+
+
+Application.ScreenUpdating = False
+   
+
+
+Sheets("SAP(Completed)").Rows("1:4").EntireRow.Delete
+Sheets("SAP(Completed)").Rows("2").EntireRow.Delete
+
+Sheets("SAP(Completed)").Columns("A:D").EntireColumn.Delete
+
+'insert Right model column
+Sheets("SAP(Completed)").Columns("O").Insert
+
+'delete the rest
+Sheets("SAP(Completed)").Columns("Z:AO").EntireColumn.Delete
+
+
+'delete title or not
+Rows("1").EntireRow.Delete
+
+Application.ScreenUpdating = True
+
+
+
+
+
+End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
